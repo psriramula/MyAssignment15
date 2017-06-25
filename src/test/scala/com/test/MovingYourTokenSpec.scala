@@ -39,6 +39,25 @@ class MovingYourTokenSpec extends FeatureSpec with GivenWhenThen with Matchers w
       game.currentPosition(token) shouldBe 4
     }
 
+
+    scenario("Token moved multiple times by rolling dice") {
+      Given("the token is on square 1")
+      val game = new Game
+      val token = game.createNewToken
+      game.currentPosition(token) shouldBe 1
+
+      When("the token is moved 3 spaces")
+      val mockedDice = mockDiceRoll(3)
+      game.rollDiceForToken(token,mockedDice)
+
+      And("then it is moved 4 spaces")
+      game.rollDiceForToken(token,mockDiceRoll(4))
+
+      Then("the token is on square 8")
+      game.currentPosition(token) shouldBe 8
+
+    }
+
   }
 
 }
