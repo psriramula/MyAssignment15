@@ -16,15 +16,36 @@ class MovesAreDeterminedByDiceRollsSpec extends FeatureSpec with GivenWhenThen w
       val game = new Game
       val token = game.createNewToken
 
-      When("When the player rolls a die")
+      When("the player rolls a die")
       val dice = new Dice
       game.rollDiceForToken(token, dice)
 
-      Then("Then the result should be between 1-6 inclusive")
+      Then("the result should be between 1-6 inclusive")
       val result = game.currentPosition(token)
       (result >= 1 && result <= 6) shouldBe true
 
     }
 
+    scenario("Token should move as per the Dice roll") {
+
+      val game = new Game
+      val dice = new Dice
+      val token = game.createNewToken
+      game.rollDiceForToken(token, dice)
+      val beforeRollTokenPosition =game.currentPosition(token)
+
+      Given("the player rolls a 4")
+      val mockedDice = mockDiceRoll(4)
+      When("they move their token")
+      game.rollDiceForToken(token,mockedDice)
+
+      Then("the token should move 4 spaces")
+      game.currentPosition(token) shouldBe  (beforeRollTokenPosition + 4)
+
+    }
+
   }
+
+
+
 }
