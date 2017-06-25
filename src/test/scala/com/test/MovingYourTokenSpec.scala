@@ -15,7 +15,7 @@ class MovingYourTokenSpec extends FeatureSpec with GivenWhenThen with Matchers w
   feature("Token Can Move Across the Board") {
     scenario("Starting Game and token on square 1") {
       Given("the game is started")
-      val game = new Game()
+      val game = new Game
 
       When("the token is placed on the board")
       val token = game.createNewToken
