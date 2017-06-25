@@ -28,11 +28,13 @@ class Game {
   private def move(token: Token, square: Int) = tokenInPlay += token -> square
 
   def rollDiceForToken(token: Token, dice:Dice): Unit = {
-    require(winnerToken.isEmpty, message = "The game has already ended")
+    require(winnerToken.isEmpty, message = "player has won the game")
     val square = currentPosition(token) + dice.rollDice
     if (square <= maxSquare) move(token, square)
     if (square == winSquare) winnerToken = Some(token)
   }
+  def gameWinner: Option[Token] = winnerToken
+
 
 }
 
